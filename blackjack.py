@@ -3,6 +3,7 @@ import random, time
 userCards = []
 
 def main():
+    print("**************************** Welcome to BlackJack ****************************")
     count = 0
     user = getUser()
     print(f"\nHi {(user.user).capitalize()}, your current balance in BlackJack wallet is ${user.balance}\n")
