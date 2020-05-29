@@ -1,5 +1,7 @@
 import random, time
 
+userCards = []
+
 def main():
     count = 0
     user = getUser()
@@ -11,7 +13,6 @@ def main():
         betAmt = bet(user)
         print("\nLet the Game Begins!\n\nLoading... ")
         time.sleep(3)
-        userCards = []
         dealerCards = []
         userTotal = 0
         dealerTotal = 0
@@ -96,6 +97,7 @@ def main():
                         break
         
         if replay():
+            userCards.clear()
             count = 0
             continue
         else:
@@ -139,6 +141,11 @@ def bet(user):
     
 def bust(total):
     if total > 21:
+        if 11 in userCards:
+            for i in range(len(userCards)):
+                if userCards[i] == 11:
+                    userCards[i] == 1
+                    return False
         time.sleep(1)
         print("You're bust, your point is above 21\n")
         time.sleep(0.5)
@@ -206,7 +213,7 @@ class Player:
     
     def deposit(self, amount):
         self.balance += amount
-        print(f"Added a amount of ${amount}, your current balance is ${self.balance}")
+        print(f"Amount of ${amount} is added, your current balance is ${self.balance}")
     
     def withDraw(self, amount):
         self.balance -= amount
