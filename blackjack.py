@@ -18,10 +18,10 @@ def main():
         while True:
             if count == 0:
                 count += 1
-                userCards.append(deck.drawCard())
-                userCards.append(deck.drawCard())
-                dealerCards.append(deck.drawCard())
-                dealerCards.append(deck.drawCard())
+                userCards.append(deck.drawCard(userTotal))
+                userCards.append(deck.drawCard(userTotal))
+                dealerCards.append(deck.drawCard(dealerTotal))
+                dealerCards.append(deck.drawCard(dealerTotal))
                 userTotal = total(userCards)
                 print(f"\nThe Cards {user.user.capitalize()} have are: ")
                 for card in userCards:
@@ -39,7 +39,7 @@ def main():
                 if choice.upper() == 'H':
                     time.sleep(0.5)
                     print("You chose to Hit")
-                    userCards.append(deck.drawCard())
+                    userCards.append(deck.drawCard(userTotal))
                     userTotal = total(userCards)
                     print(f"\nThe Cards {user.user.capitalize()} have are: ")
                     for card in userCards:
@@ -58,7 +58,7 @@ def main():
                             else:
                                 if dealerTotal < userTotal and dealerTotal < 17:
                                     time.sleep(1)
-                                    dealerCards.append(deck.drawCard())
+                                    dealerCards.append(deck.drawCard(dealerTotal))
                                     print(f"The Cards Dealer have are: ")
                                     for card in dealerCards:
                                         card.show()
@@ -190,10 +190,13 @@ class Deck:
         for c in self.cards:
             c.show()
     
-    def drawCard(self):
+    def drawCard(self, points):
         card = self.cards.pop()
         if card.value > 10:
             card.value = 10
+        elif card.value == 1:
+            if points < 11:
+                card.value = 11
         return card
 
 class Player:
